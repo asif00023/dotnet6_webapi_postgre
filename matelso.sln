@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "matelso.api", "matelso.api\matelso.api.csproj", "{8B0F0633-7DD4-4650-8B6D-62024C71CA48}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "matelso.dbmodels", "matelso.dbmodels\matelso.dbmodels.csproj", "{12A5E106-9078-41EA-B6D3-D4C07DAECE03}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "matelso.viewmodels", "matelso.viewmodels\matelso.viewmodels.csproj", "{CFB921D8-636A-475E-A3E7-066932BDFD8C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "matelso.dbmutator", "matelso.dbmutator\matelso.dbmutator.csproj", "{04174917-CA3C-43A3-A990-B2FC45AD4763}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "matelso.repository", "matelso.service\matelso.repository.csproj", "{FF35086F-2931-4441-904D-CB51A986F239}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "matelso.app.core", "matelso.app.core\matelso.app.core.csproj", "{D891C785-F5D3-443F-9738-D661AF9A9C72}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8B0F0633-7DD4-4650-8B6D-62024C71CA48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B0F0633-7DD4-4650-8B6D-62024C71CA48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B0F0633-7DD4-4650-8B6D-62024C71CA48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B0F0633-7DD4-4650-8B6D-62024C71CA48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12A5E106-9078-41EA-B6D3-D4C07DAECE03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12A5E106-9078-41EA-B6D3-D4C07DAECE03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12A5E106-9078-41EA-B6D3-D4C07DAECE03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12A5E106-9078-41EA-B6D3-D4C07DAECE03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFB921D8-636A-475E-A3E7-066932BDFD8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFB921D8-636A-475E-A3E7-066932BDFD8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFB921D8-636A-475E-A3E7-066932BDFD8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFB921D8-636A-475E-A3E7-066932BDFD8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04174917-CA3C-43A3-A990-B2FC45AD4763}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04174917-CA3C-43A3-A990-B2FC45AD4763}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04174917-CA3C-43A3-A990-B2FC45AD4763}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04174917-CA3C-43A3-A990-B2FC45AD4763}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF35086F-2931-4441-904D-CB51A986F239}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF35086F-2931-4441-904D-CB51A986F239}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF35086F-2931-4441-904D-CB51A986F239}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF35086F-2931-4441-904D-CB51A986F239}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D891C785-F5D3-443F-9738-D661AF9A9C72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D891C785-F5D3-443F-9738-D661AF9A9C72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D891C785-F5D3-443F-9738-D661AF9A9C72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D891C785-F5D3-443F-9738-D661AF9A9C72}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {43F4AD6E-84AC-4655-A336-D5D0EBD072AB}
+	EndGlobalSection
+EndGlobal
