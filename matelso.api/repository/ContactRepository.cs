@@ -16,17 +16,17 @@ using System.Threading.Tasks;
 
 namespace matelso.repository.repository
 {
-    public class ContactRepository:IContactRepository
+    public class ContactRepository:IContactService
     {
         private readonly MatelsoDataContext _context;
         private readonly IMapper _mapper;
         
         private bool disposed = false;
         
-        public ContactRepository()
-        {
-            _context = new MatelsoDataContext();
-        }
+        //public ContactRepository()
+        //{
+        //    _context = new MatelsoDataContext();
+        //}
         
         public ContactRepository(MatelsoDataContext context,IMapper mapper)
         {
@@ -63,6 +63,8 @@ namespace matelso.repository.repository
                 int dayLeftForBirthday = BirthdayRemainingDays((DateTime)contactPersonViewModel.Birthdate);
                 if (dayLeftForBirthday <= 14)
                     contactPersonViewModel.NotifyHasBirthdaySoon = "Birthday will be in "+ dayLeftForBirthday + " days";
+                else
+                    contactPersonViewModel.NotifyHasBirthdaySoon = "";
                 contactPersonViewModels.Add(contactPersonViewModel);
             }
             return contactPersonViewModels;
@@ -78,7 +80,9 @@ namespace matelso.repository.repository
             int dayLeftForBirthday = BirthdayRemainingDays((DateTime)contactPersonVm.Birthdate);
             if (dayLeftForBirthday <= 14)
                 contactPersonVm.NotifyHasBirthdaySoon = "Birthday will be in " + dayLeftForBirthday + " days";
-            
+            else
+                contactPersonVm.NotifyHasBirthdaySoon = "";
+
 
             return contactPersonVm;
         }
@@ -126,6 +130,9 @@ namespace matelso.repository.repository
             int dayLeftForBirthday = BirthdayRemainingDays((DateTime)contactPersonRm.Birthdate);
             if (dayLeftForBirthday <= 14)
                 contactPersonRm.NotifyHasBirthdaySoon = "Birthday will be in " + dayLeftForBirthday + " days";
+            else 
+                contactPersonRm.NotifyHasBirthdaySoon = "";
+            contactPersonRm.Displayname=contactPerson.DisplayName;
             return (contactPersonRm, httpStatusCode,"Data Updated");
             //return true;
         }

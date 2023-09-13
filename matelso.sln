@@ -11,9 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "matelso.viewmodels", "matel
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "matelso.dbmutator", "matelso.dbmutator\matelso.dbmutator.csproj", "{04174917-CA3C-43A3-A990-B2FC45AD4763}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "matelso.repository", "matelso.service\matelso.repository.csproj", "{FF35086F-2931-4441-904D-CB51A986F239}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "matelso.app.core", "matelso.app.core\matelso.app.core.csproj", "{D891C785-F5D3-443F-9738-D661AF9A9C72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "matelso.app.core", "matelso.app.core\matelso.app.core.csproj", "{D891C785-F5D3-443F-9738-D661AF9A9C72}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +35,6 @@ Global
 		{04174917-CA3C-43A3-A990-B2FC45AD4763}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04174917-CA3C-43A3-A990-B2FC45AD4763}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04174917-CA3C-43A3-A990-B2FC45AD4763}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FF35086F-2931-4441-904D-CB51A986F239}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FF35086F-2931-4441-904D-CB51A986F239}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FF35086F-2931-4441-904D-CB51A986F239}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FF35086F-2931-4441-904D-CB51A986F239}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D891C785-F5D3-443F-9738-D661AF9A9C72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D891C785-F5D3-443F-9738-D661AF9A9C72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D891C785-F5D3-443F-9738-D661AF9A9C72}.Release|Any CPU.ActiveCfg = Release|Any CPU

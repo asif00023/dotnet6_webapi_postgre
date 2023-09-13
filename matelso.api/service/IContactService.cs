@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace matelso.repository.interfaces
 {
-    public interface IContactRepository
+    public interface IContactService
     {
         Task<ActionResult<IEnumerable<ContactReqestModel>>> GetAllContactPersonsAsync();
         Task<ActionResult<ContactReqestModel>> GetContactPersonById(int id);
@@ -18,6 +18,9 @@ namespace matelso.repository.interfaces
         Task<(ContactReqestModel, HttpStatusCode, string)> UpdateContactPerson(ContactReqestModel contactPersonRm, int id);
         Task<(ContactReqestModel, HttpStatusCode, string)> SaveContactPerson(ContactReqestModel contactPersonRm);
         Task<(int, HttpStatusCode, string)> DeleteContactPerson(int id);
-        
+        bool DuplicateEmailAddress(string email);
+        bool DuplicateEmailAddressForUpdate(string email, int id);
+
+
     }
 }

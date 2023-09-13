@@ -5,80 +5,86 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
-using AutoMapper;
 using matelso.dbmodels;
-using matelso.viewmodels.RequestModel;
-using matelso.repository.repository;
+using AutoMapper;
 using matelso.app.core;
+using matelso.repository.repository;
 using System.Net;
+using matelso.viewmodels.RequestModel;
+using matelso.repository.interfaces;
 
 namespace matelso.api.Controllers
 {
     [Route("api/[controller]")]
-    [Produces("application/json")]    
     [ApiController]
     public class ContactsController : ControllerBase
     {
-        private readonly MatelsoDataContext _context;
+        
         private readonly IMapper _mapper;
-        private readonly ContactRepository _repository;
+        private readonly IContactService _contactService;
         private readonly ILogger<ContactsController> _logger;
         MatelsoResponse matelsoResponse;
         ResponseBody matelsoResponseBody;
 
-        public ContactsController(MatelsoDataContext context, IMapper mapper, ILogger<ContactsController> logger)
+        
+        public ContactsController(IMapper mapper, ILogger<ContactsController> logger, IContactService contactService)
         {
-            _context = context;
-            _mapper = mapper;            
+            _mapper = mapper;
             _logger = logger;
-            _repository = new ContactRepository(_context, _mapper);
+            _contactService = contactService;
             matelsoResponse = new MatelsoResponse();
             matelsoResponseBody = new ResponseBody();
         }
 
-        // GET: api/ContactPersons
+        // GET: api/Contacts
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<MatelsoResponse> GetContacts()
-        {                                   
-            var conatctPersons= await _repository.GetAllContactPersonsAsync();
+        {
+            var conatctPersons = await _contactService.GetAllContactPersonsAsync();
 
             matelsoResponseBody.StatusCode = HttpStatusCode.OK;
-            if (conatctPersons==null||conatctPersons.Value.Count()==0)
+            if (conatctPersons == null || conatctPersons.Value.Count() == 0)
             {
                 matelsoResponseBody.StatusMessage = "No data found";
                 matelsoResponse.responseBody = matelsoResponseBody;
                 return matelsoResponse;
             }
-            
+
             matelsoResponseBody.StatusMessage = "Object Retrive Successfully";
             matelsoResponseBody.objectVal = conatctPersons.Value;
             matelsoResponse.responseBody = matelsoResponseBody;
             return matelsoResponse;
         }
 
-        // GET: api/ContactPersons/5
-        [HttpGet("{id}")]        
+        
+        // GET: api/Contacts/5
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<MatelsoResponse> GetContact(int id)
         {
-                       
-            var contactPerson = await _repository.GetContactPersonById(id);
-            
+
+            var contactPerson = await _contactService.GetContactPersonById(id);
+
             matelsoResponseBody.StatusCode = HttpStatusCode.OK;
             if (contactPerson == null)
             {
                 matelsoResponseBody.StatusMessage = "No Data Found";
                 matelsoResponse.responseBody = matelsoResponseBody;
-                return matelsoResponse;
+                
             }
-            matelsoResponseBody.objectVal = contactPerson.Value;
-            matelsoResponse.responseBody = matelsoResponseBody;
+            else
+            {
+                matelsoResponseBody.StatusMessage = "Object Retrive Successfully";
+                matelsoResponseBody.objectVal = contactPerson.Value;
+                matelsoResponse.responseBody = matelsoResponseBody;
+            }
+            
             return matelsoResponse;
         }
 
-        // PUT: api/ContactPersons/5
+        
+        // PUT: api/Contacts/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -102,7 +108,7 @@ namespace matelso.api.Controllers
                 return matelsoResponse;
 
             }
-            if (_repository.DuplicateEmailAddressForUpdate(contactPersonRm.Email,id))
+            if (_contactService.DuplicateEmailAddressForUpdate(contactPersonRm.Email, id))
             {
                 matelsoResponseBody.StatusCode = HttpStatusCode.Conflict;
                 matelsoResponseBody.StatusMessage = "Email address must be unique";
@@ -110,17 +116,17 @@ namespace matelso.api.Controllers
                 return matelsoResponse;
             }
             ContactReqestModel contactPerson;
-            (contactPerson,matelsoResponseBody.StatusCode,matelsoResponseBody.StatusMessage)= await _repository.UpdateContactPerson(contactPersonRm,id);
-            
+            (contactPerson, matelsoResponseBody.StatusCode, matelsoResponseBody.StatusMessage) = await _contactService.UpdateContactPerson(contactPersonRm, id);
+
             matelsoResponseBody.objectVal = contactPerson;
             matelsoResponse.responseBody = matelsoResponseBody;
             return matelsoResponse;
         }
 
-        // POST: api/ContactPersons
+        // POST: api/Contacts
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created)]        
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<MatelsoResponse> PostContact(ContactReqestModel contactPersonRm)
         {
             if (!ModelState.IsValid)
@@ -131,10 +137,10 @@ namespace matelso.api.Controllers
                 matelsoResponseBody.StatusMessage = "Validation error";
                 matelsoResponse.responseBody = matelsoResponseBody;
                 return matelsoResponse;
-                
+
             }
-            
-            if (_repository.DuplicateEmailAddress(contactPersonRm.Email))
+
+            if (_contactService.DuplicateEmailAddress(contactPersonRm.Email))
             {
                 matelsoResponseBody.StatusCode = HttpStatusCode.Conflict;
                 matelsoResponseBody.StatusMessage = "Email address must be unique";
@@ -142,9 +148,9 @@ namespace matelso.api.Controllers
                 return matelsoResponse;
             }
             ContactReqestModel contactPerson;
-            
-            (contactPerson,matelsoResponseBody.StatusCode,matelsoResponseBody.StatusMessage )= await _repository.SaveContactPerson(contactPersonRm);
-            
+
+            (contactPerson, matelsoResponseBody.StatusCode, matelsoResponseBody.StatusMessage) = await _contactService.SaveContactPerson(contactPersonRm);
+
             matelsoResponseBody.objectVal = contactPerson;
             matelsoResponse.responseBody = matelsoResponseBody;
             return matelsoResponse;
@@ -157,14 +163,16 @@ namespace matelso.api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<MatelsoResponse> DeleteContact(int id)
         {
-            
-            (id, matelsoResponseBody.StatusCode, matelsoResponseBody.StatusMessage)= await _repository.DeleteContactPerson(id);
+
+            (id, matelsoResponseBody.StatusCode, matelsoResponseBody.StatusMessage) = await _contactService.DeleteContactPerson(id);
 
             matelsoResponseBody.objectVal = id;
             matelsoResponse.responseBody = matelsoResponseBody;
             return matelsoResponse;
 
-            
+
         }
+
+        
     }
 }
