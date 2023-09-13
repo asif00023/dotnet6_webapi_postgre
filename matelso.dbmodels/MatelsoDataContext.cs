@@ -37,7 +37,7 @@ namespace matelso.dbmodels
             
         }
 
-        public DbSet<Contact> ContactPersons { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
     }
 
 }
