@@ -34,7 +34,6 @@
   <ItemGroup>
     <ProjectReference Include="..\matelso.app.core\matelso.app.core.csproj" />
     <ProjectReference Include="..\matelso.dbmodels\matelso.dbmodels.csproj" />
-    <ProjectReference Include="..\matelso.service\matelso.repository.csproj" />
     <ProjectReference Include="..\matelso.viewmodels\matelso.viewmodels.csproj" />
   </ItemGroup>
 
