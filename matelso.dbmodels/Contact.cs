@@ -1,6 +1,6 @@
 ﻿namespace matelso.dbmodels
 {
-    public class ContactPerson
+    public class Contact
     {
         public int Id { get; set; }
         public string Salutation { get; set; }
