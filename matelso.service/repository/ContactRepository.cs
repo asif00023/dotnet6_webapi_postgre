@@ -51,15 +51,15 @@ namespace matelso.repository.repository
             int numDays = (next - today).Days;
             return numDays;
         }
-        public async Task<ActionResult<IEnumerable<ContactPersonViewModel>>> GetAllContactPersonsAsync()
+        public async Task<ActionResult<IEnumerable<ContactPersonReqestModel>>> GetAllContactPersonsAsync()
         {
             
             var contactPersons = await _context.ContactPersons.ToListAsync();
-            List<ContactPersonViewModel> contactPersonViewModels = new List<ContactPersonViewModel>();
-            ContactPersonViewModel contactPersonViewModel;
+            List<ContactPersonReqestModel> contactPersonViewModels = new List<ContactPersonReqestModel>();
+            ContactPersonReqestModel contactPersonViewModel;
             foreach (var contactPerson in contactPersons)
             {
-                contactPersonViewModel = _mapper.Map<ContactPersonViewModel>(contactPerson);
+                contactPersonViewModel = _mapper.Map<ContactPersonReqestModel>(contactPerson);
                 int dayLeftForBirthday = BirthdayRemainingDays((DateTime)contactPersonViewModel.Birthdate);
                 if (dayLeftForBirthday <= 14)
                     contactPersonViewModel.NotifyHasBirthdaySoon = "Birthday will be in "+ dayLeftForBirthday + " days";
@@ -68,13 +68,13 @@ namespace matelso.repository.repository
             return contactPersonViewModels;
         }
 
-        public async Task<ActionResult<ContactPersonViewModel>> GetContactPersonById(int id)
+        public async Task<ActionResult<ContactPersonReqestModel>> GetContactPersonById(int id)
         {
             var contactPerson = await _context.ContactPersons.FindAsync(id);
             if (contactPerson == null)
                 return null;
 
-            ContactPersonViewModel contactPersonVm = _mapper.Map<ContactPersonViewModel>(contactPerson);
+            ContactPersonReqestModel contactPersonVm = _mapper.Map<ContactPersonReqestModel>(contactPerson);
             int dayLeftForBirthday = BirthdayRemainingDays((DateTime)contactPersonVm.Birthdate);
             if (dayLeftForBirthday <= 14)
                 contactPersonVm.NotifyHasBirthdaySoon = "Birthday will be in " + dayLeftForBirthday + " days";
@@ -83,13 +83,13 @@ namespace matelso.repository.repository
             return contactPersonVm;
         }
 
-        public async Task<(ContactPersonViewModel, HttpStatusCode,string)> UpdateContactPerson(ContactPersonViewModel contactPersonRm,int id)
+        public async Task<(ContactPersonReqestModel, HttpStatusCode,string)> UpdateContactPerson(ContactPersonReqestModel contactPersonRm,int id)
         {
             HttpStatusCode httpStatusCode;
             string message;
 
-            ContactPerson contactPerson = _mapper.Map<ContactPerson>(contactPersonRm);
-            ContactPerson contactPersonolder = await OldContactData(id);
+            Contact contactPerson = _mapper.Map<Contact>(contactPersonRm);
+            Contact contactPersonolder = await OldContactData(id);
             if (contactPersonolder == null)
             {
                 Log.Error("No Data found with this id");
@@ -130,7 +130,7 @@ namespace matelso.repository.repository
             //return true;
         }
 
-        private async Task<ContactPerson> OldContactData(int id)
+        private async Task<Contact> OldContactData(int id)
         {
             return await _context.ContactPersons.FirstOrDefaultAsync(e => e.Id == id);
         }
@@ -140,11 +140,11 @@ namespace matelso.repository.repository
         //    return (_context.ContactPersons?.Any(e => e.Id == id)).GetValueOrDefault();
         //}
         
-        public async Task<(ContactPersonViewModel, HttpStatusCode,string)> SaveContactPerson(ContactPersonViewModel contactPersonRm)
+        public async Task<(ContactPersonReqestModel, HttpStatusCode,string)> SaveContactPerson(ContactPersonReqestModel contactPersonRm)
         {
             HttpStatusCode statusCode;
             
-            ContactPerson contactPerson = _mapper.Map<ContactPerson>(contactPersonRm);
+            Contact contactPerson = _mapper.Map<Contact>(contactPersonRm);
             if (String.IsNullOrEmpty(contactPerson.Displayname))
             {
                 contactPerson.Displayname = GenerateDisplayName(contactPerson.Salutation,contactPerson.Firstname,contactPerson.Lastname);
