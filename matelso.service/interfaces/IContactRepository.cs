@@ -1,5 +1,5 @@
 ﻿using matelso.dbmodels;
-using matelso.viewmodels.ViewModel;
+using matelso.viewmodels.RequestModel;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

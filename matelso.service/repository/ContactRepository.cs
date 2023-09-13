@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using matelso.dbmodels;
 using matelso.repository.interfaces;
-using matelso.viewmodels.ViewModel;
+using matelso.viewmodels.RequestModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

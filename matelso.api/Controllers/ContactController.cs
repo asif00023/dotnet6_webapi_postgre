@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 using AutoMapper;
 using matelso.dbmodels;
-using matelso.viewmodels.ViewModel;
+using matelso.viewmodels.RequestModel;
 using matelso.repository.repository;
 using matelso.app.core;
 using System.Net;
