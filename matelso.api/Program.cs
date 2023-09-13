@@ -31,7 +31,7 @@ builder.Services.AddControllers()
         Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
 builder.Services.AddScoped<IContactRepository, ContactRepository>();
-builder.Services.AddAutoMapper(typeof(ContactPersonProfile));
+builder.Services.AddAutoMapper(typeof(ContactProfile));
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 

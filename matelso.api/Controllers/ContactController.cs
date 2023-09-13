@@ -17,16 +17,16 @@ namespace matelso.api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ContactPersonsController : ControllerBase
+    public class ContactController : ControllerBase
     {
         private readonly MatelsoDataContext _context;
         private readonly IMapper _mapper;
         private readonly ContactRepository _repository;
-        private readonly ILogger<ContactPersonsController> _logger;
+        private readonly ILogger<ContactController> _logger;
         MatelsoResponse matelsoResponse;
         ResponseBody matelsoResponseBody;
 
-        public ContactPersonsController(MatelsoDataContext context, IMapper mapper, ILogger<ContactPersonsController> logger)
+        public ContactController(MatelsoDataContext context, IMapper mapper, ILogger<ContactController> logger)
         {
             _context = context;
             _mapper = mapper;            
@@ -78,7 +78,7 @@ namespace matelso.api.Controllers
         // PUT: api/ContactPersons/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<MatelsoResponse> PutContactPerson(int id, ContactPersonViewModel contactPersonRm)
+        public async Task<MatelsoResponse> PutContactPerson(int id, ContactReqestModel contactPersonRm)
         {
             if (id != contactPersonRm.Id)
             {
@@ -105,7 +105,7 @@ namespace matelso.api.Controllers
                 matelsoResponse.responseBody = matelsoResponseBody;
                 return matelsoResponse;
             }
-            ContactPersonViewModel contactPerson;
+            ContactReqestModel contactPerson;
             (contactPerson,matelsoResponseBody.StatusCode,matelsoResponseBody.StatusMessage)= await _repository.UpdateContactPerson(contactPersonRm,id);
             
             matelsoResponseBody.objectVal = contactPerson;
@@ -116,7 +116,7 @@ namespace matelso.api.Controllers
         // POST: api/ContactPersons
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<MatelsoResponse> PostContactPerson(ContactPersonViewModel contactPersonRm)
+        public async Task<MatelsoResponse> PostContactPerson(ContactReqestModel contactPersonRm)
         {
             if (!ModelState.IsValid)
             {
@@ -135,7 +135,7 @@ namespace matelso.api.Controllers
                 matelsoResponse.responseBody = matelsoResponseBody;
                 return matelsoResponse;
             }
-            ContactPersonViewModel contactPerson;
+            ContactReqestModel contactPerson;
             
             (contactPerson,matelsoResponseBody.StatusCode,matelsoResponseBody.StatusMessage )= await _repository.SaveContactPerson(contactPersonRm);
             
