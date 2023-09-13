@@ -2,7 +2,7 @@
 
 using AutoMapper;
 using matelso.dbmodels;
-using matelso.viewmodels.ViewModel;
+using matelso.viewmodels.RequestModel;
 
 namespace matelso.viewmodels.MapperProfile
 {

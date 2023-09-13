@@ -1,7 +1,7 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
 
-namespace matelso.viewmodels.ViewModel
+namespace matelso.viewmodels.RequestModel
 {
     public class ContactReqestModel
     {
