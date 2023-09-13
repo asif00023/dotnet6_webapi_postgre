@@ -6,12 +6,12 @@ using matelso.viewmodels.ViewModel;
 
 namespace matelso.viewmodels.MapperProfile
 {
-    public class ContactPersonProfile:Profile
+    public class ContactProfile:Profile
     {
-        public ContactPersonProfile()
+        public ContactProfile()
         {
             //CreateMap<ContactPersonViewModel, ContactPerson>().ReverseMap();
-            CreateMap<ContactPersonViewModel, ContactPerson>().ReverseMap().ForMember(dest => dest.NotifyHasBirthdaySoon, opt => opt.MapFrom(src => String.Empty));
+            CreateMap<ContactReqestModel, Contact>().ReverseMap().ForMember(dest => dest.NotifyHasBirthdaySoon, opt => opt.MapFrom(src => String.Empty));
                         
         }
     }

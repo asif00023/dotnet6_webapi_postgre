@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace matelso.viewmodels.ViewModel
 {
-    public class ContactPersonViewModel
+    public class ContactReqestModel
     {
         public int Id { get; set; }
         [Required]
