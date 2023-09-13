@@ -54,7 +54,7 @@ namespace matelso.repository.repository
         public async Task<ActionResult<IEnumerable<ContactReqestModel>>> GetAllContactPersonsAsync()
         {
             
-            var contactPersons = await _context.ContactPersons.ToListAsync();
+            var contactPersons = await _context.Contacts.ToListAsync();
             List<ContactReqestModel> contactPersonViewModels = new List<ContactReqestModel>();
             ContactReqestModel contactPersonViewModel;
             foreach (var contactPerson in contactPersons)
@@ -70,7 +70,7 @@ namespace matelso.repository.repository
 
         public async Task<ActionResult<ContactReqestModel>> GetContactPersonById(int id)
         {
-            var contactPerson = await _context.ContactPersons.FindAsync(id);
+            var contactPerson = await _context.Contacts.FindAsync(id);
             if (contactPerson == null)
                 return null;
 
@@ -105,9 +105,9 @@ namespace matelso.repository.repository
             }
             
             
-            if (String.IsNullOrEmpty(contactPerson.Displayname))
+            if (String.IsNullOrEmpty(contactPerson.DisplayName))
             {
-                contactPerson.Displayname = GenerateDisplayName(contactPerson.Salutation, contactPerson.Firstname, contactPerson.Lastname);
+                contactPerson.DisplayName = GenerateDisplayName(contactPerson.Salutation, contactPerson.FirstName, contactPerson.LastName);
             }
             _context.Entry(contactPerson).State = EntityState.Modified;
 
@@ -132,7 +132,7 @@ namespace matelso.repository.repository
 
         private async Task<Contact> OldContactData(int id)
         {
-            return await _context.ContactPersons.FirstOrDefaultAsync(e => e.Id == id);
+            return await _context.Contacts.FirstOrDefaultAsync(e => e.Id == id);
         }
 
         //private bool ContactPersonExists(int id)
@@ -145,15 +145,15 @@ namespace matelso.repository.repository
             HttpStatusCode statusCode;
             
             Contact contactPerson = _mapper.Map<Contact>(contactPersonRm);
-            if (String.IsNullOrEmpty(contactPerson.Displayname))
+            if (String.IsNullOrEmpty(contactPerson.DisplayName))
             {
-                contactPerson.Displayname = GenerateDisplayName(contactPerson.Salutation,contactPerson.Firstname,contactPerson.Lastname);
+                contactPerson.DisplayName = GenerateDisplayName(contactPerson.Salutation,contactPerson.FirstName,contactPerson.LastName);
             }
             
             contactPerson.CreationTimestamp = DateTime.Now;
             try
             {
-                _context.ContactPersons.Add(contactPerson);
+                _context.Contacts.Add(contactPerson);
                 await _context.SaveChangesAsync();
                 statusCode = HttpStatusCode.Created;
             }
@@ -165,7 +165,7 @@ namespace matelso.repository.repository
                 return (contactPersonRm, statusCode,r.Message);
             }
             contactPersonRm.Id = contactPerson.Id;
-            contactPersonRm.Displayname=contactPerson.Displayname;
+            contactPersonRm.Displayname=contactPerson.DisplayName;
 
             int dayLeftForBirthday = BirthdayRemainingDays((DateTime)contactPersonRm.Birthdate);
             if (dayLeftForBirthday <= 14)
@@ -179,7 +179,7 @@ namespace matelso.repository.repository
         {
             HttpStatusCode statusCode;
             string msg;
-            var contactPerson = await _context.ContactPersons.FindAsync(id);
+            var contactPerson = await _context.Contacts.FindAsync(id);
             if (contactPerson == null)
             {
                 statusCode= HttpStatusCode.NotFound;
@@ -188,7 +188,7 @@ namespace matelso.repository.repository
             }
             try
             {
-                _context.ContactPersons.Remove(contactPerson);
+                _context.Contacts.Remove(contactPerson);
                 await _context.SaveChangesAsync();
                 statusCode = HttpStatusCode.Accepted;
                 msg = "Data has been deleted";
@@ -229,7 +229,7 @@ namespace matelso.repository.repository
             int count;
             try
             {
-                count = _context.ContactPersons.Count(x => x.Email == email);
+                count = _context.Contacts.Count(x => x.Email == email);
             }
             catch (Exception r)
             {
@@ -248,7 +248,7 @@ namespace matelso.repository.repository
             int count;
             try
             {
-                count = _context.ContactPersons.Count(x => x.Email == email&&x.Id!=id);
+                count = _context.Contacts.Count(x => x.Email == email&&x.Id!=id);
             }
             catch (Exception r)
             {
