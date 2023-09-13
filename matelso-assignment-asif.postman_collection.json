@@ -1,0 +1,121 @@
+{
+	"info": {
+		"_postman_id": "cc3dd2d0-9ff1-4543-93ec-e3fce9db7579",
+		"name": "matelso-assignment-asif",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Post/CreateNew",
+			"protocolProfileBehavior": {
+				"strictSSL": false
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 0,\r\n  \"salutation\": \"mr\",\r\n  \"firstname\": \"asif\",\r\n  \"lastname\": \"mahamud\",\r\n  \"displayname\": \"\",\r\n  \"birthdate\": \"1985-04-27\",\r\n  \"email\": \"asif.cse@gmail.com\",\r\n  \"phonenumber\": \"4917616743289\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7070/api/Contacts",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7070",
+					"path": [
+						"api",
+						"Contacts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getById",
+			"protocolProfileBehavior": {
+				"strictSSL": false
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7070/api/Contacts/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7070",
+					"path": [
+						"api",
+						"Contacts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put/update",
+			"protocolProfileBehavior": {
+				"strictSSL": false
+			},
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n            \"id\": 1,\r\n            \"salutation\": \"mr.\",\r\n            \"firstname\": \"asif\",\r\n            \"lastname\": \"mahamud\",\r\n            \"displayname\": \"mr. asif mahamud\",\r\n            \"birthdate\": \"1985-02-10\",            \r\n            \"email\": \"asif.kucse@gmail.com\",\r\n            \"phonenumber\": \"4917616743289\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7070/api/Contacts/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7070",
+					"path": [
+						"api",
+						"Contacts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getall",
+			"protocolProfileBehavior": {
+				"strictSSL": false
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7070/api/Contacts",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7070",
+					"path": [
+						"api",
+						"Contacts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
