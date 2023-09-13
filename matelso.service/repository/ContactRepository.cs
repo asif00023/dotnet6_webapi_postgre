@@ -51,15 +51,15 @@ namespace matelso.repository.repository
             int numDays = (next - today).Days;
             return numDays;
         }
-        public async Task<ActionResult<IEnumerable<ContactPersonReqestModel>>> GetAllContactPersonsAsync()
+        public async Task<ActionResult<IEnumerable<ContactReqestModel>>> GetAllContactPersonsAsync()
         {
             
             var contactPersons = await _context.ContactPersons.ToListAsync();
-            List<ContactPersonReqestModel> contactPersonViewModels = new List<ContactPersonReqestModel>();
-            ContactPersonReqestModel contactPersonViewModel;
+            List<ContactReqestModel> contactPersonViewModels = new List<ContactReqestModel>();
+            ContactReqestModel contactPersonViewModel;
             foreach (var contactPerson in contactPersons)
             {
-                contactPersonViewModel = _mapper.Map<ContactPersonReqestModel>(contactPerson);
+                contactPersonViewModel = _mapper.Map<ContactReqestModel>(contactPerson);
                 int dayLeftForBirthday = BirthdayRemainingDays((DateTime)contactPersonViewModel.Birthdate);
                 if (dayLeftForBirthday <= 14)
                     contactPersonViewModel.NotifyHasBirthdaySoon = "Birthday will be in "+ dayLeftForBirthday + " days";
@@ -68,13 +68,13 @@ namespace matelso.repository.repository
             return contactPersonViewModels;
         }
 
-        public async Task<ActionResult<ContactPersonReqestModel>> GetContactPersonById(int id)
+        public async Task<ActionResult<ContactReqestModel>> GetContactPersonById(int id)
         {
             var contactPerson = await _context.ContactPersons.FindAsync(id);
             if (contactPerson == null)
                 return null;
 
-            ContactPersonReqestModel contactPersonVm = _mapper.Map<ContactPersonReqestModel>(contactPerson);
+            ContactReqestModel contactPersonVm = _mapper.Map<ContactReqestModel>(contactPerson);
             int dayLeftForBirthday = BirthdayRemainingDays((DateTime)contactPersonVm.Birthdate);
             if (dayLeftForBirthday <= 14)
                 contactPersonVm.NotifyHasBirthdaySoon = "Birthday will be in " + dayLeftForBirthday + " days";
@@ -83,7 +83,7 @@ namespace matelso.repository.repository
             return contactPersonVm;
         }
 
-        public async Task<(ContactPersonReqestModel, HttpStatusCode,string)> UpdateContactPerson(ContactPersonReqestModel contactPersonRm,int id)
+        public async Task<(ContactReqestModel, HttpStatusCode,string)> UpdateContactPerson(ContactReqestModel contactPersonRm,int id)
         {
             HttpStatusCode httpStatusCode;
             string message;
@@ -140,7 +140,7 @@ namespace matelso.repository.repository
         //    return (_context.ContactPersons?.Any(e => e.Id == id)).GetValueOrDefault();
         //}
         
-        public async Task<(ContactPersonReqestModel, HttpStatusCode,string)> SaveContactPerson(ContactPersonReqestModel contactPersonRm)
+        public async Task<(ContactReqestModel, HttpStatusCode,string)> SaveContactPerson(ContactReqestModel contactPersonRm)
         {
             HttpStatusCode statusCode;
             
