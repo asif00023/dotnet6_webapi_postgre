@@ -16,6 +16,10 @@ using System.Net;
 namespace matelso.api.Controllers
 {
     [Route("api/[controller]")]
+    [Produces("application/json")]
+    
+    
+    
     [ApiController]
     public class ContactController : ControllerBase
     {
@@ -38,6 +42,7 @@ namespace matelso.api.Controllers
 
         // GET: api/ContactPersons
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<MatelsoResponse> GetContactPersons()
         {                                   
             var conatctPersons= await _repository.GetAllContactPersonsAsync();
@@ -57,7 +62,8 @@ namespace matelso.api.Controllers
         }
 
         // GET: api/ContactPersons/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}")]        
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<MatelsoResponse> GetContactPerson(int id)
         {
                        
@@ -78,6 +84,7 @@ namespace matelso.api.Controllers
         // PUT: api/ContactPersons/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<MatelsoResponse> PutContactPerson(int id, ContactReqestModel contactPersonRm)
         {
             if (id != contactPersonRm.Id)
@@ -116,6 +123,7 @@ namespace matelso.api.Controllers
         // POST: api/ContactPersons
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]        
         public async Task<MatelsoResponse> PostContactPerson(ContactReqestModel contactPersonRm)
         {
             if (!ModelState.IsValid)
@@ -148,6 +156,7 @@ namespace matelso.api.Controllers
 
         // DELETE: api/ContactPersons/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<MatelsoResponse> DeleteContactPerson(int id)
         {
             ////if (_context.ContactPersons == null)
