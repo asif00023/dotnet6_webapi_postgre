@@ -16,21 +16,18 @@ using System.Net;
 namespace matelso.api.Controllers
 {
     [Route("api/[controller]")]
-    [Produces("application/json")]
-    
-    
-    
+    [Produces("application/json")]    
     [ApiController]
-    public class ContactController : ControllerBase
+    public class ContactsController : ControllerBase
     {
         private readonly MatelsoDataContext _context;
         private readonly IMapper _mapper;
         private readonly ContactRepository _repository;
-        private readonly ILogger<ContactController> _logger;
+        private readonly ILogger<ContactsController> _logger;
         MatelsoResponse matelsoResponse;
         ResponseBody matelsoResponseBody;
 
-        public ContactController(MatelsoDataContext context, IMapper mapper, ILogger<ContactController> logger)
+        public ContactsController(MatelsoDataContext context, IMapper mapper, ILogger<ContactsController> logger)
         {
             _context = context;
             _mapper = mapper;            
@@ -43,7 +40,7 @@ namespace matelso.api.Controllers
         // GET: api/ContactPersons
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<MatelsoResponse> GetContactPersons()
+        public async Task<MatelsoResponse> GetContacts()
         {                                   
             var conatctPersons= await _repository.GetAllContactPersonsAsync();
 
@@ -64,7 +61,7 @@ namespace matelso.api.Controllers
         // GET: api/ContactPersons/5
         [HttpGet("{id}")]        
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<MatelsoResponse> GetContactPerson(int id)
+        public async Task<MatelsoResponse> GetContact(int id)
         {
                        
             var contactPerson = await _repository.GetContactPersonById(id);
@@ -85,7 +82,7 @@ namespace matelso.api.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<MatelsoResponse> PutContactPerson(int id, ContactReqestModel contactPersonRm)
+        public async Task<MatelsoResponse> PutContact(int id, ContactReqestModel contactPersonRm)
         {
             if (id != contactPersonRm.Id)
             {
@@ -124,7 +121,7 @@ namespace matelso.api.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]        
-        public async Task<MatelsoResponse> PostContactPerson(ContactReqestModel contactPersonRm)
+        public async Task<MatelsoResponse> PostContact(ContactReqestModel contactPersonRm)
         {
             if (!ModelState.IsValid)
             {
@@ -136,6 +133,7 @@ namespace matelso.api.Controllers
                 return matelsoResponse;
                 
             }
+            
             if (_repository.DuplicateEmailAddress(contactPersonRm.Email))
             {
                 matelsoResponseBody.StatusCode = HttpStatusCode.Conflict;
@@ -157,12 +155,8 @@ namespace matelso.api.Controllers
         // DELETE: api/ContactPersons/5
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<MatelsoResponse> DeleteContactPerson(int id)
+        public async Task<MatelsoResponse> DeleteContact(int id)
         {
-            ////if (_context.ContactPersons == null)
-            ////{
-            ////    return NotFound();
-            ////}
             
             (id, matelsoResponseBody.StatusCode, matelsoResponseBody.StatusMessage)= await _repository.DeleteContactPerson(id);
 
