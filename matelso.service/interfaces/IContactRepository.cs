@@ -12,11 +12,11 @@ namespace matelso.repository.interfaces
 {
     public interface IContactRepository
     {
-        Task<ActionResult<IEnumerable<ContactPersonViewModel>>> GetAllContactPersonsAsync();
-        Task<ActionResult<ContactPersonViewModel>> GetContactPersonById(int id);
+        Task<ActionResult<IEnumerable<ContactPersonReqestModel>>> GetAllContactPersonsAsync();
+        Task<ActionResult<ContactPersonReqestModel>> GetContactPersonById(int id);
 
-        Task<(ContactPersonViewModel, HttpStatusCode, string)> UpdateContactPerson(ContactPersonViewModel contactPersonRm, int id);
-        Task<(ContactPersonViewModel, HttpStatusCode, string)> SaveContactPerson(ContactPersonViewModel contactPersonRm);
+        Task<(ContactPersonReqestModel, HttpStatusCode, string)> UpdateContactPerson(ContactPersonReqestModel contactPersonRm, int id);
+        Task<(ContactPersonReqestModel, HttpStatusCode, string)> SaveContactPerson(ContactPersonReqestModel contactPersonRm);
         Task<(int, HttpStatusCode, string)> DeleteContactPerson(int id);
         
     }
